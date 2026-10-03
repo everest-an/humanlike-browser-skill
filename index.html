@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>humanlike-browser — pass Cloudflare / "Verify you are human" checks with human-like browser input</title>
+  <meta name="description" content="An AI skill for opencode / Claude Code / Cursor: drive a real browser with human-like input — irregular mouse motion, no teleporting, move-before-click, natural typing — so Cloudflare Turnstile and bot-flagged forms pass. For your own legitimate automation." />
+  <link rel="describedby" href="/llms.txt" />
+  <link rel="alternate" type="text/markdown" href="/llms.txt" title="llms.txt" />
+  <style>
+    :root { --bg:#0b0f14; --fg:#e6edf3; --mut:#9aa7b4; --acc:#22d3ee; --card:#121a22; --bd:#22303c; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue","PingFang SC","Microsoft YaHei",sans-serif; }
+    .wrap { max-width: 820px; margin: 0 auto; padding: 64px 22px 96px; }
+    h1 { font-size: 2rem; margin: 0 0 .2em; letter-spacing:-.02em; }
+    h2 { font-size: 1.15rem; margin: 2.2em 0 .6em; border-bottom:1px solid var(--bd); padding-bottom:.35em; }
+    .tag { color: var(--acc); font-weight:600; font-size:.9rem; letter-spacing:.04em; text-transform:uppercase; }
+    .lead { color: var(--mut); font-size:1.05rem; }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    pre { background: var(--card); border:1px solid var(--bd); border-radius:10px; padding:14px 16px; overflow:auto; font-size:.88rem; }
+    a { color: var(--acc); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    ul { padding-left: 1.2em; }
+    li { margin:.3em 0; }
+    .chips span { display:inline-block; background:var(--card); border:1px solid var(--bd); border-radius:999px; padding:3px 11px; margin:3px 6px 3px 0; font-size:.82rem; color:var(--mut); }
+    .note { border-left:3px solid #f59e0b; background:#1a1408; padding:12px 16px; border-radius:8px; color:#fbd38d; font-size:.92rem; }
+    .zh { color: var(--mut); }
+    footer { margin-top:3em; color:var(--mut); font-size:.85rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="tag">AI Skill · opencode / Claude Code / Cursor</div>
+    <h1>humanlike-browser</h1>
+    <p class="lead">Drive a real browser with <strong>human-like input</strong> — irregular mouse motion, no teleporting, move-before-click, natural typing — so <strong>Cloudflare Turnstile / "Verify you are human"</strong> checks and bot-flagged forms pass.</p>
+    <p class="zh">用拟人化输入驱动浏览器（不瞬移、不规则运动、移入再点、自然打字），让 Cloudflare Turnstile / 人机验证 与反爬表单能正常通过。</p>
+
+    <p class="chips">
+      <span>no teleporting</span><span>irregular motion</span><span>move → pause → click</span><span>natural typing</span><span>Playwright</span><span>MCP-ready</span><span>MIT</span>
+    </p>
+
+    <h2>The rules that actually matter</h2>
+    <ul>
+      <li><strong>Never teleport the cursor</strong> — always <code>page.mouse.move(x, y, { steps })</code> first.</li>
+      <li><strong>Irregular motion</strong> — random steps + pixel jitter; never the same curve.</li>
+      <li><strong>Move → pause (~120–400 ms) → click.</strong></li>
+      <li><strong>2–3 idle moves</strong> across the page before interacting.</li>
+      <li><strong>Type with delays</strong> instead of instant fill.</li>
+      <li><strong>Randomize timing</strong>; don't hammer on failure.</li>
+    </ul>
+
+    <h2>Install</h2>
+    <pre># opencode
+git clone https://github.com/everest-an/humanlike-browser-skill.git .opencode/skills/humanlike-browser
+
+# Claude Code / Cursor
+git clone https://github.com/everest-an/humanlike-browser-skill.git ~/.claude/skills/humanlike-browser</pre>
+    <p>Any AI / manual: point the model at <a href="https://github.com/everest-an/humanlike-browser-skill/blob/main/SKILL.md">SKILL.md</a> + <a href="https://github.com/everest-an/humanlike-browser-skill/blob/main/references/human-mouse.mjs">references/human-mouse.mjs</a>.</p>
+
+    <h2>Scope &amp; ethics</h2>
+    <div class="note">Use this for <strong>your own legitimate actions</strong> on services you're entitled to use — submitting your own form, testing your own site, accessibility/QA automation. <strong>Do not</strong> use it to bypass protections for scraping, abuse, or credential stuffing. Passing a bot check is not permission to do what the check was guarding. Prefer official APIs.<br/><span class="zh">仅用于你自己的合法操作；不得用于绕过防护做爬取/滥用；有官方 API 优先用官方 API。</span></div>
+
+    <h2>Links</h2>
+    <ul>
+      <li>Repo: <a href="https://github.com/everest-an/humanlike-browser-skill">github.com/everest-an/humanlike-browser-skill</a></li>
+      <li>llms.txt: <a href="/llms.txt">/llms.txt</a></li>
+      <li>Built into <strong>HyperCode</strong> (ships as a built-in skill).</li>
+    </ul>
+
+    <footer>MIT © 2026 everest-an · <a href="https://github.com/everest-an/humanlike-browser-skill">GitHub</a></footer>
+  </div>
+</body>
+</html>
