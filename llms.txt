@@ -1,0 +1,30 @@
+# humanlike-browser
+
+> A ready-to-use AI skill: drive a real browser with human-like input (irregular mouse motion, no teleporting, move-before-click, natural typing) so Cloudflare Turnstile / "Verify you are human" checks and bot-flagged forms pass.
+
+## What it is
+- [README](https://github.com/everest-an/humanlike-browser-skill/blob/main/README.md): overview, install, rules, ethics
+- [SKILL.md](https://github.com/everest-an/humanlike-browser-skill/blob/main/SKILL.md): full skill (when to use, the rules, a ready example, scope/ethics)
+- [references/human-mouse.mjs](https://github.com/everest-an/humanlike-browser-skill/blob/main/references/human-mouse.mjs): reusable Playwright helpers (`humanMove`, `humanClick`, `humanType`, `idleMoves`)
+
+## What it does
+- Encodes the pointer/timing behavior that human-verification widgets actually score.
+- No teleporting; irregular motion; move → pause → click; natural typing delays.
+- Works with the Playwright MCP (`browser_run_code_unsafe`) or a plain Playwright script.
+
+## The rules (short)
+1. Never teleport the cursor — `page.mouse.move(x, y, { steps })` first.
+2. Irregular steps + pixel jitter; never the same curve.
+3. Move → pause (~120–400 ms) → click.
+4. 2–3 idle moves before interacting.
+5. Type with per-character delays.
+6. Randomize timing; don't hammer on failure.
+
+## Scope & ethics
+For your own legitimate actions only (your forms, your site, QA). Not for bypassing protections to scrape/abuse. Prefer official APIs.
+
+## Citation
+> humanlike-browser (2026). Human-like browser interaction for passing interactive bot checks. everest-an. https://github.com/everest-an/humanlike-browser-skill
+
+## Optional
+- [License](https://github.com/everest-an/humanlike-browser-skill/blob/main/LICENSE): MIT
